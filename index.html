@@ -9,6 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/print.css" />
+  <!-- Firebase Cloud SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -27,6 +30,7 @@
       <button type="button" class="nav-btn" data-tab="clientsMaster">👥 Client Master</button>
       <button type="button" class="nav-btn" data-tab="productsMaster">📦 Items & Rates</button>
       <button type="button" class="nav-btn" data-tab="settings">⚙️ Settings & Backup</button>
+      <div id="cloudSyncStatusBadge" style="margin-left: 12px; font-size: 0.75rem; font-weight: 700; background: #064e3b; color: #34d399; padding: 5px 12px; border-radius: 20px; border: 1px solid #059669; display: flex; align-items: center; gap: 6px;">🟢 Cloud Sync Ready</div>
     </nav>
   </header>
 
@@ -109,6 +113,30 @@
           </div>
         </div>
         <div class="grid-2">
+        <!-- ☁️ Multi-Device Real-Time Cloud Sync -->
+        <div class="card" style="border: 2px solid #38bdf8; background: #f0f9ff; margin-bottom: 20px; grid-column: span 2;">
+          <div class="card-header" style="background: #e0f2fe; border-bottom: 1px solid #bae6fd; display: flex; justify-content: space-between; align-items: center;">
+            <div class="card-title" style="color: #0369a1; display: flex; align-items: center; gap: 8px; margin: 0;">
+              <span>☁️</span>
+              <span>Multi-Device Real-Time Cloud Sync (Any Laptop / Phone / Tablet)</span>
+            </div>
+            <span class="badge badge-green" style="background: #0284c7; color: white;">Real-Time</span>
+          </div>
+          <div style="padding: 16px;">
+            <p style="font-size: 0.85rem; color: #0369a1; margin-bottom: 12px;">
+              Apne kisi bhi Laptop, Mobile ya Tablet par ek sath real-time bills access karne ke liye apna <strong>Business Sync PIN</strong> enter karein:
+            </p>
+            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+              <div class="form-group" style="margin: 0; min-width: 220px;">
+                <label style="font-size: 0.8rem; font-weight: 700; color: #0369a1;">Business Sync PIN / Code:</label>
+                <input type="text" id="syncPinInput" class="form-control" style="font-weight: 800; font-family: monospace; text-transform: uppercase; font-size: 1rem; border: 1.5px solid #0284c7;" placeholder="e.g. OSF-27" value="OSF-27" />
+              </div>
+              <button type="button" class="btn btn-primary" style="margin-top: 18px; font-weight: 700; background: #0284c7; border: none;" onclick="OSFSync.connect(document.getElementById('syncPinInput').value)">🔗 Connect & Sync This Device</button>
+              <button type="button" class="btn btn-success" style="margin-top: 18px; font-weight: 700;" onclick="OSFSync.pushAllToCloud()">☁️ Upload All Invoices to Cloud</button>
+            </div>
+          </div>
+        </div>
+
           
           <!-- Billed To Box -->
           <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 16px;">
@@ -556,6 +584,7 @@
   <div id="toastContainer"></div>
 
   <script src="js/data.js"></script>
+  <script src="js/sync.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
